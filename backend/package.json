@@ -1,0 +1,10 @@
+{
+  "name": "my-frist-nodejs-app",
+  "version": "1.0.1",
+  "main": "main.js",
+  "dependencies": {
+    "express": "latest",
+    "mongodb": "latest",
+    "body-parser": "latest"
+  }
+}

@@ -1,0 +1,119 @@
+
+center{
+    color: red;
+    font-size: 50px;
+    background-image: url(http://www.mokacoffee.co/images/background.jpg);
+    background-size: 700px 100px;; 
+    height: 100px;
+}
+
+td{
+    display: inline-block;
+}
+
+body{
+    background-image: url(http://www.sublimecoffee.co.nz/wp-content/uploads/2016/02/Beans.png);
+    background-size: auto;
+    background-position: center bottom;
+    
+}
+
+img{
+    display: block;
+    width: 400px;
+    height: 400px;
+}
+
+button{
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+
+font{
+    size: 25px;
+    color: peru;
+}
+
+h1{
+    color:  burlywood;
+}
+
+p{
+    font-size: 20px;
+    color: darkgoldenrod;    
+    background-color: rgba(50, 0, 50, 0.7) ;
+    
+}
+
+.cell{
+    display: flex;
+    cursor: pointer;
+}
+
+.nameCSS{
+    display: block;
+    color: orange;
+}
+
+.addressCSS{
+    display: block;
+    text-decoration: underline;
+}
+
+.total{
+    display: inline-block;
+    padding: 10px;
+    border-style: solid;
+}
+
+.shopDetail{
+    color: peru;
+    text-align: center;
+    margin-left:auto; 
+    margin-right:auto;
+    width: 700px;
+}
+
+.shopDIV{
+    border: 1px solid black;
+    background-color: cornsilk;
+    
+}
+
+.shopName{
+    display: block;
+    color: orange;
+}
+
+.shopAddress{
+    display: block;
+    text-decoration: underline;
+}
+
+.shopImage{
+    text-align: center;
+    margin-left:auto; 
+    margin-right:auto;
+    width: 400px;
+    height: 300px;
+}
+
+.newTable{
+    text-align: center;
+    margin-left:auto; 
+    margin-right:auto;
+    background-color: wheat;
+    height: 350px;
+    width: 450px;
+}
+
+.dtailTable{
+    
+    text-align: left;
+    margin-left:auto; 
+    margin-right:auto;
+    background-color: white;
+    width: 200px;
+    border: 1px solid black;
+}

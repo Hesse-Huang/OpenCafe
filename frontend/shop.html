@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta charset="utf-8">
+<html>
+<head>
+    <link href="openCofe.css" type="text/css" rel="stylesheet">
+    <title></title>
+    <center></center>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="content">
+
+</div>
+</body>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var getId = function getIDFromURL(){
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('?'),
+                sParameterName,
+                i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === 'id') {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+        var id = getId();
+        console.log(id);
+        if(id == 'empty'){
+            //show page detail in table (add new page)
+            var div = '<div class="emptyClass"> <font>Input some basic formation of shop here</font><br/>'+
+                '<table class="newTable"><tr><td>Shop Name: </td><td><input type="text" id="shopName"/></td></tr><tr/>'+
+                '<tr><td>Image URL: </td><td><input type="text" id="imgURL"/></td></tr><tr/>'+
+                '<tr><td>Shop Address: </td><td><input type="text" id="shopAddress"/></td></tr><tr/>'+
+                '<tr/><tr/><tr style="text-align: left;"><td>Famous in shop(Give Top 2 - 3):</td></tr><tr/><tr><td>1.</td><td><input type="text" id="famous1"/></td></tr>'+
+                '<tr><td>2.</td><td><input type="text" id="famous2"/></td></tr>'+
+                '<tr><td>3.</td><td><input type="text" id="famous3"/></td></tr></table>'+
+                '<br/><br/><br/><button id="save">Save</button></div>';
+            $("center").text("Add new Café");
+            $("title").text("Add new");
+            $("#content").append(div);
+
+            //get inputed values
+            var newShopDetail = {};
+            $("#save").click(function(){
+
+                var name = $("#shopName").val();
+                var imgUrl = $("#imgURL").val();
+                var address = $("#shopAddress").val();
+                var coffees = [];
+                if($("#famous1").val() != ""){
+                    coffees.push($("#famous1").val());
+                }
+                if($("#famous2").val() != ""){
+                    coffees.push($("#famous2").val());
+                }
+                if($("#famous3").val() != ""){
+                    coffees.push($("#famous3").val());
+                }
+
+                var shop = {
+                    'name': name,
+                    'address': address,
+                    'imgUrl': imgUrl,
+                    'coffees':coffees
+                };
+                console.log(shop);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://47.75.172.76:3389/shop',
+                    dataType: 'json',
+                    contentType:"application/json; charset=utf-8",
+                    async: false,
+                    data: JSON.stringify(shop),
+                    success: function(data) {
+                        alert('A new shop is added!');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                        alert('Emm.. Error occurs.');
+                    }
+                });
+
+
+            });
+
+        }else{
+            //show shop detail
+            $.get('http://47.75.172.76:3389/shops', function(req, res) {
+
+                var shopDetail = req[id];
+                var coffee3 = "";
+                if(typeof shopDetail.coffees[2] != "undefined"){
+                    coffee3 = shopDetail.coffees[2];
+                }
+                $("center").text(shopDetail.name);
+                $("title").text(shopDetail.name);
+                var div = '<div class="shopDetail"><br/><br/><br/><div class="shopDIV"><img class="shopImage" src="' + shopDetail.imgUrl +
+                    '"><p class="shopName"><font>Name: </font>' + shopDetail.name + '</p><p class="shopAddress"><font>Address: </font>'+ shopDetail.address +
+                    '</p><table class="dtailTable"><tr style="text-align: left;" class="dtailTable"><th class="dtailTable"><font>Famous on shop:</font></th><th></th></tr>'+
+                    '<tr class="dtailTable"><td></td><td class="dtailTable">'+shopDetail.coffees[0]+'</td></tr><tr class="dtailTable"><td></td><td class="dtailTable">'+shopDetail.coffees[1]+'</td></tr><tr><td>'+coffee3+'</td></tr></table></div></div>';
+
+                $("#content").append(div);
+            });
+        }
+
+    });
+</script>
+
+</html>
